@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+/*
+ * ダークモードは `.dark` クラスで切り替える（ThemeToggle が <html> に付ける）。
+ * prefers-color-scheme は初期値の決定にだけ使う。
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * テーマのトークン。
+ * ロール色・拡張色・Perf 色は「FF14 / FFLogs 固有の意味を持つ色」なので、
+ * Tailwind の既定パレットではなくここで明示的に定義して全画面で共有する。
+ */
+@theme {
+  --font-sans: var(--font-noto-sans-jp), system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", Meiryo, sans-serif;
+
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-header: var(--surface-header);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+
+  /* Perf（FFLogs の parse color）。緑はライトモードで暗くする */
+  --color-perf-gray: var(--perf-gray);
+  --color-perf-green: var(--perf-green);
+  --color-perf-blue: var(--perf-blue);
+  --color-perf-purple: var(--perf-purple);
+  --color-perf-orange: var(--perf-orange);
+  --color-perf-pink: var(--perf-pink);
+  --color-perf-gold: var(--perf-gold);
+
+  /* ロール色（mock.png から実測）。タンク青 / ヒーラー緑 / DPS 赤 */
+  --color-role-tank: #316ef5;
+  --color-role-healer: #45a23c;
+  --color-role-dps: #ef4445;
+  --color-role-unknown: var(--role-unknown);
+}
+
+:root {
+  color-scheme: light;
+  --surface: #ffffff;
+  --surface-subtle: #f5f7fa;
+  --surface-header: #eef4fd;
+  --line: #d5dbe4;
+  --line-strong: #b9c2d0;
+  --ink: #1b2330;
+  --ink-muted: #5b6676;
+  --accent: #2563eb;
+  --accent-ink: #ffffff;
+  --role-unknown: #cbd3de;
+
+  /* ライトモード: FFLogs 標準の緑 (#1eff00) は白背景で読みにくいので暗めにする */
+  --perf-gray: #6b7280;
+  --perf-green: #1a9e00;
+  --perf-blue: #0060dd;
+  --perf-purple: #8f2fd0;
+  --perf-orange: #d96700;
+  --perf-pink: #c2417f;
+  --perf-gold: #a8892c;
+}
+
+.dark {
+  color-scheme: dark;
+  --surface: #12161d;
+  --surface-subtle: #1a202a;
+  --surface-header: #1c2635;
+  --line: #2b3442;
+  --line-strong: #3d4859;
+  --ink: #e6ebf2;
+  --ink-muted: #98a3b3;
+  --accent: #4f8ef7;
+  --accent-ink: #0b1220;
+  --role-unknown: #3d4859;
+
+  /* ダークモードは FFLogs 標準の値をそのまま使う */
+  --perf-gray: #9aa4b2;
+  --perf-green: #1eff00;
+  --perf-blue: #3f9bff;
+  --perf-purple: #b46bf0;
+  --perf-orange: #ff9a33;
+  --perf-pink: #e268a8;
+  --perf-gold: #e5cc80;
+}
+
+html,
+body {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* 数字は桁を揃える */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * 拡張ごとの配色。拡張ロゴに寄せた色を data 属性で当てる
+ * （mock.png から暁月・漆黒の値を実測）。
+ */
+[data-expansion="Dawntrail"] {
+  --exp-bg: #faf5e6;
+  --exp-accent: #a8892c;
+}
+[data-expansion="Endwalker"] {
+  --exp-bg: #f9f7f3;
+  --exp-accent: #8c7f5c;
+}
+[data-expansion="Shadowbringers"] {
+  --exp-bg: #eef2f8;
+  --exp-accent: #3f5b8f;
+}
+[data-expansion="Stormblood"] {
+  --exp-bg: #fbf0ef;
+  --exp-accent: #a8392f;
+}
+[data-expansion="Heavensward"] {
+  --exp-bg: #f0f5fb;
+  --exp-accent: #3f6f9f;
+}
+[data-expansion="A Realm Reborn"] {
+  --exp-bg: #f2f4f6;
+  --exp-accent: #5b6b7c;
+}
+
+.dark [data-expansion="Dawntrail"] {
+  --exp-bg: #2a2413;
+  --exp-accent: #e0c063;
+}
+.dark [data-expansion="Endwalker"] {
+  --exp-bg: #26241d;
+  --exp-accent: #c9b98a;
+}
+.dark [data-expansion="Shadowbringers"] {
+  --exp-bg: #1b2434;
+  --exp-accent: #86a8e0;
+}
+.dark [data-expansion="Stormblood"] {
+  --exp-bg: #2c1b1a;
+  --exp-accent: #e08a80;
+}
+.dark [data-expansion="Heavensward"] {
+  --exp-bg: #16222e;
+  --exp-accent: #8fbde8;
+}
+.dark [data-expansion="A Realm Reborn"] {
+  --exp-bg: #1e2530;
+  --exp-accent: #a4b4c6;
+}

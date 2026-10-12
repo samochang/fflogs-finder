@@ -1,0 +1,43 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# 資格情報。絶対にコミットしない（FFLogs のクライアント ID / シークレット、Vercel トークン）
+.env
+.env.local
+.env*.local
+.env.*
+!.env.example
+
+# ジョブアイコンは FF14 のゲーム内アセット。
+# リポジトリには含めず、各自 `npm run fetch:icons` で XIVAPI から取得する。
+public/jobs/
+
+# 環境依存の npm 設定（キャッシュ先をワークスペース内に向けている。$HOME が read-only な環境用）
+.npmrc
+
+# Scoped npm cache (see .npmrc)
+.npm-cache/
+
+# scripts/ の調査用スクラッチ（_ 始まりは一時ファイル）
+scripts/_*
+!/scripts/_*.example
+
+# Vercel / その他
+.vercel
+.tok
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Playwright の作業ディレクトリ（scripts/screenshot.mts 用）
+.browser-tmp/
+
+# 開発用のファイル永続キャッシュ（Upstash 未設定時に使う）
+.cache/
